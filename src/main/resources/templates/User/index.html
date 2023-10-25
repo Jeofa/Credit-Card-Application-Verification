@@ -1,0 +1,147 @@
+<!DOCTYPE html >
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <title>CCAV</title>
+    <link rel="stylesheet" th:href="@{/css/users/index.css}">
+    <script th:src="@{/js/users/index.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <!-- Header -->
+        <div class="col-sm-12">
+          <h3>Credit card Applications</h3>
+        </div>
+        <!-- Progress bar -->
+        <div class="myprogressbar">
+          <div class="myprogress" id="myprogress"></div>
+          <div class="myprogress-step myprogress-step-active"data-title="Select Card"></div>
+          <div class="myprogress-step" data-title="Personal Details"></div>
+          <div class="myprogress-step" data-title="Employement Details"></div>
+          <div class="myprogress-step" data-title="Bank Details"></div>
+          <div class="myprogress-step" data-title="Checker Details"></div>
+          <div class="myprogress-step" data-title="Submit"></div>
+        </div>
+      </div>
+
+      <div class="row">
+      
+        <div class="col-sm-6">
+          <div class="carder middle">
+            <div class="front">
+              <img th:src="@{/img/Gold_Card.png}">
+            </div>
+            <div class="back">
+              <div class="back-content middle">
+                <h3>Gold Card</h3>
+                <p>Limits of Kes.200,000<br>Cross-Platform </p>
+                <p>Visa card</p>
+              
+              </div>
+            </div>
+            
+          </div>
+          <form th:action="@{/users/card}" th:object="${card}" method="post">
+          	<input type="hidden"  th:field="*{cardId}" id="card1id">
+          	<input type="hidden"  th:field="*{cardName}"  id="card1">
+           	<button type="submit" class="btn btn-outline-success btn-next" id="apply-btn">  
+           	Apply <i class="fa fa-angle-double-right" aria-hidden="true"></i> </button>
+       	  </form>
+        </div>
+      
+	        <div class="col-sm-6">
+	          <div class="carder middle">
+	            <div class="front">
+	              <img th:src="@{/img/Platinum_Card.png}" alt="">
+	            </div>
+	            <div class="back">
+	              <div class="back-content middle">
+	                <h3>Platinum Card</h3>
+	                <p>limits of Kes. 300,000</p>
+	               
+	                <p>Visa card</p>
+	            </div>
+	          </div>
+	        </div>
+	        <form th:action="@{/users/card}" th:object="${card}" method="post">
+	        	<input type="hidden"  th:field="*{cardId}" id="card2id">
+	          	<input type="hidden" th:field="${card.cardName}" id="card2">
+		        <button type="submit" class="btn btn-outline-success btn-next" id="apply-btn"> Apply <i class="fa fa-angle-double-right" aria-hidden="true"></i> </button>
+	      </form>
+	      </div>
+     
+      <br><br>
+
+      <div class="row">
+	        <div class="col-sm-6">
+	          <div class="carder middle">
+	            <div class="front">
+	              <img th:src="@{/img/product5.png}" alt="">
+	            </div>
+	            <div class="back">
+	              <div class="back-content middle">
+	                 <h3>Classic Card</h3>
+	                  <p> limits of Kes 20,000 <br>Cross-Platforms</p>
+	                <p>Visa card</p>
+	              </div>
+	            </div>
+	          </div>
+	            <form th:action="@{/users/card}" th:object="${card}" method="post">
+	            	<input type="hidden"  th:field="*{cardId}" id="card3id">
+          			<input type="hidden"  th:field="*{cardName}" id="card3">
+	          		<button type="submit"  class="btn btn-outline-success btn-next" id="apply-btn"> Apply <i class="fa fa-angle-double-right" aria-hidden="true"></i> </button >
+	      		</form>
+	       </div>
+		
+		
+	        <div class="col-sm-6">
+	          <div class="carder middle">
+	            <div class="front">
+	              <img th:src="@{/img/product6.png}" alt="">
+	            </div>
+	            <div class="back">
+	              <div class="back-content middle">
+	              	<h3>Master Card</h3>
+	              	<p>Limit of Kes.50,000</p>
+	                <p>Visa card</p>
+	              </div>
+	            </div>
+	          </div>
+	            <form th:action="@{/users/card}" th:object="${card}" method="post">
+	            	<input type="hidden"  th:field="*{cardId}" id="card4id">
+	          		<input type="hidden"  th:field="*{cardName}" id="card4">
+		          	<button type="submit"  class="btn btn-outline-success btn-next" id="apply-btn"> Apply <i class="fa fa-angle-double-right" aria-hidden="true"></i> </button >
+	       		</form>
+	        </div>
+		
+      </div>
+    
+    </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+    window.onload = ()=>{
+		swal("Welcome!", "Requirements:\n 1.Original image of national Identity\n2.Latest Payslip document \n3.Summary of Bank Statement(6months)", "success");
+	}
+  	
+</script>
+<script type="text/javascript">
+	document.getElementById('card1').value = 'GoldCard';
+	document.getElementById('card1id').value = '1';
+	document.getElementById('card2').value = 'PlatinumCard';
+	document.getElementById('card2id').value = '2';
+	document.getElementById('card3').value = 'ClassicCard';
+	document.getElementById('card3id').value = '3';
+	document.getElementById('card4').value = 'MasterCard';
+	document.getElementById('card4id').value = '4';
+</script>
+
+  </body>
+</html>

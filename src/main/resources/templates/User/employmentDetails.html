@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 	<link rel="stylesheet" th:href="@{/css/users/personaldetails.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+
+    <title>Employment</title>
+</head>
+<body class="" >
+    
+    <form th:action="@{/users/employmentDetails}" th:object="${employ}" method="POST" class="row g-3" id="form_layout"  enctype="multipart/form-data">
+
+        <h4 id="heading">EMPLOYMENT DETAILS</h4>
+		<input type='hidden' id="errorgetter">
+        <div class="md-3 col-md-12">
+            <label for="" class="form-label">Type of Employment</label>
+            <select th:field="*{empType}" id="" class="form-control form-control-lg">
+                <option th:value="Employed">Employed</option>
+                <option th:value="Self-Employed">Self-Employed</option>
+                <option th:value="Retired">Retired</option>
+            </select>
+        </div>
+
+        <small>If Self-Employed</small>
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Business Name</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{bsName}" id="bsName"><br>
+        </div>
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Your Position</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{bsPosition}" id="position"><br>
+        </div>
+        <!-- <hr> -->
+        <div class="md-3 col-md-12">
+            <label class="form-label" >Terms Of Employment</label><br>
+            <input type="radio"class="form-check-input" th:value="Permanent" id="" th:field="*{termsOfEmp}" >
+            <label class="form-check-label" style="margin-right: 1pc;" >Permanent</label>
+            <input type="radio"class="form-check-input" th:value="Contract" th:field="*{termsOfEmp}">
+            <label class="form-check-label" style="margin-right: 1pc;">Contract</label>
+            <input type="radio"class="form-check-input" th:value="Other" th:field="*{termsOfEmp}">
+            <label class="form-check-label" style="margin-right: 1pc;">Other</label>
+            
+        </div>
+        <div class="md-3 col-md-4">
+            <label class="form-label" >Postal Address</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{postalAddress}" id="postal"><br>
+        </div>
+        <div class="md-3 col-md-4">
+            <label class="form-label" >Code</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{postalCode}" id="code"><br>
+        </div>
+        <div class="md-3 col-md-4">
+            <label class="form-label" >Town</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{bsTown}" id="town"><br>
+        </div>
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Telephone</label>
+            <input type="text" class="form-control form-control-lg" placeholder="employer's contact" th:field="*{telphone}" id="telphone"><br>
+        </div> 
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Email</label>
+            <input type="text" class="form-control form-control-lg" placeholder="employer's email" th:field="*{email}" id="email"><br>
+        </div>
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Salary</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{salary}" id="salary"><br>
+        </div>
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Allowances</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{allowance}" id="allowance"><br>
+        </div>
+
+       
+        <br><br>
+        <div class="file-drop-area">
+            <span class="fake-btn">Upload Payslip</span>
+            <span class="file-msg">or drag and drop files here</span>
+            <input class="file-input" type="file" name="file" >
+        </div>
+
+        <div class="md-3 col-md-12">
+            <input type="submit" class="btn btn-success form-control" name="submit" value="SUBMIT">
+        </div>
+
+    </form>
+</body>
+</html>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script>  
+    $(document).ready(function(){
+	//require('/js/analyser/index.js');
+	var url_string = window.location.href; 
+	var url = new URL(url_string);
+	var error = url.searchParams.get("error");
+	document.getElementById("errorgetter").value = error;
+		if(error == "error"){
+		 swal("Error!!", "Check on your:\n Image uploaded if authentic\nOR\nNetwork connection ", "warning");
+       }
+       });
+	
+	</script>
+	

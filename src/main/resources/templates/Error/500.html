@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns=th:"http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body class="container">
+	<!--<h3  class="errors">Internal Error!!. contact the owner</h3>-->
+
+<script>
+$(document).ready(fucn());
+function fucn(){
+            
+            swal({
+            icon: "warning",
+            text: "Internal Error!!. contact the administrator"
+            });
+        }
+</script>
+</body>
+
+</html>

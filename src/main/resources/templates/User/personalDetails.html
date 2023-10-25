@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/users/personaldetails.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <title>CCAV</title>
+</head>
+<body class="container">
+
+    <form th:action="@{/users/personalDetails}" method="POST" class="row g-3" id="form_layout" th:object="${persons}" enctype="multipart/form-data">
+
+        <h4 id="heading">PERSONAL DETAILS</h4>
+        <input type='hidden' id="errorgetter">
+       
+     <input type='hidden' th:field="${persons.mycard}" id="cardIdSelection">
+
+        <div class="mb-3 col-md-4">
+            <label class="form-label" >First Name</label>
+            <input type="text" class="form-control form-control-lg" th:field="${persons.fname}" >
+            <!-- <div class="form-text"> <p>error messages</p> </div> -->
+        </div>
+        <div class="mb-3 col-md-4">
+            <label class="form-label" >Middle Name</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{mname}"  id="mname">
+        </div>
+        <div class="mb-3 col-md-4">
+             <label class="form-label" >Last Name</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{lname}"  id="lname">
+        </div>
+       
+        <div class="md-3">
+            <label class="form-label" >Identification Number</label>
+           <!-- id="identity"-->
+            <input type="text"  class="form-control form-control-lg" th:field="*{person_Id}" id="idnumber">
+        </div>
+
+
+        <div class="col-md-6">
+            <label class="form-label" >Date Of Birth</label>
+            <input type="date" class="form-control form-control-lg" min="1945-01-01" max="2003-09-13" th:field="*{dob}"  id="dob">
+        </div>
+        
+        <div class="md-3 col-md-6">
+            <label class="form-label" >If married, name spouse</label>
+            <input type="text" class="form-control form-control-lg"   id="dob">
+        </div>
+      
+
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Phone Number</label>
+            <input type="tel" class="form-control form-control-lg" th:field="*{phone}"  id="phoneNumber">
+        </div>
+
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Email</label>
+            <input type="email" class="form-control form-control-lg" th:field="*{email}"  id="email"><br>
+        </div>
+
+        <div class="md-3 col-md-6">
+            <label class="form-label" >Gender</label><br>
+            <input type="radio"class="form-check-input"  th:field="*{gender}" value="Male" id="" >
+            <label class="form-check-label" style="margin-right: 1pc;" >Male</label>
+            <input type="radio"class="form-check-input"  th:field="*{gender}" value="Female" id="">
+            <label class="form-check-label" style="margin-right: 1pc;">Female</label>
+            <input type="radio"class="form-check-input"  th:field="*{gender}" value="Other" id="">
+            <label class="form-check-label" style="margin-right: 1pc;">Other</label>
+            
+        </div>
+
+        <div  class="col-md-6" >
+            <label class="form-label" >Marital Status</label><br>
+            <input type="checkbox" class="form-check-input" th:field="*{marital}" value="Married" id=""> 
+            <label class="form-check-label" style="margin-right: 1pc;">Married</label>
+            <input type="checkbox" class="form-check-input" th:field="*{marital}" value="Divorced" id="">
+            <label class="form-check-label" style="margin-right: 1pc;">Divorced</label> 
+            <input type="checkbox" class="form-check-input" th:field="*{marital}" value="Widow" id="">
+            <label class="form-check-label" style="margin-right: 1pc;">Widowed</label> 
+            <input type="checkbox" class="form-check-input" th:field="*{marital}" value="Single" id="">
+            <label class="form-check-label" >Single</label>  <br><br>
+        </div>
+        <br><br>
+        
+        <div class="file-drop-area">
+            <span class="fake-btn">Upload Identity Image</span>
+            <span class="file-msg">or drag and drop files here</span>
+            <input class="file-input" type="file" name="imagefile">
+        </div>
+
+        <div class="md-3 col-md-12">
+            <input type="submit" class="btn btn-success form-control" name="submit" value="SUBMIT">
+        </div>
+
+    </form>
+       <hr>
+
+ <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+$(document).ready(function(){
+	//require('/js/analyser/index.js');
+	var currenturl = window.location.href;
+	console.log(currenturl);
+	var url_string = window.location.href; 
+	var url = new URL(url_string);
+	var cardId = url.searchParams.get("cardid");
+	var error = url.searchParams.get("error");
+	document.getElementById("cardIdSelection").value = cardId;
+	document.getElementById("errorgetter").value = error;
+	console.log("error detected "+error);
+		if(error == "error"){
+		 swal("Error!!", "Check on your:\n Image uploaded if authentic\nOR\nNetwork connection ", "warning");
+       }
+	
+    $("input:checkbox").on('click', function() {
+        var $box = $(this);
+        if ($box.is(":checked")) {
+            // the name of the box is retrieved using the .attr() method
+            // as it is assumed and expected to be immutable
+            var group = "input:checkbox[name='" + $box.attr("name") + "']";
+            // the checked state of the group/box on the other hand will change
+            // and the current value is retrieved using .prop() method
+            $(group).prop("checked", false);
+            $box.prop("checked", true);
+        } else {
+            $box.prop("checked", false);
+        }
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/users/personaldetails.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+
+    <title>CCAV</title>
+</head>
+<body>
+    <form th:action="@{/users/otherDetails}" th:object="${other}" method="POST" class="row g-3" id="form_layout">
+
+        <h4 id="heading">OTHER INFORMATION</h4>
+
+        <div class="md-3 col-md-12">
+            <label class="form-label" >Housing Status</label>
+            <select th:field="*{houseNo}" id="" class="form-control form-control-lg">
+                <option th:value="Rental">Rental</option>
+                <option th:value="Owned">Owned</option>
+                <option th:value="Mortgage">Mortgage</option>
+            </select>
+        </div>
+        <div class="md-3 col-md-12">
+            <label class="form-label" >Any lending balances</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{loanBalances}" id="bankAcc"><br>
+        </div>
+        
+            <label class="form-label" >Personal Referees</label>
+            <!-- <small>Referee 1.</small> -->
+            <div class=" col-md-4">
+                <label class="form-label" >Name</label>
+                <input type="text" class="form-control form-control-lg" th:field="*{refName}" ><br>
+            </div>
+            <div class=" col-md-4">
+                <label class="form-label" >Email</label>
+                <input type="email" class="form-control form-control-lg" th:field="*{refEmail}" ><br>
+            </div>
+            <div class="md-3 col-md-4">
+                <label class="form-label" >Phone Number</label>
+                <input type="text" class="form-control form-control-lg" th:field="*{refPhoneNo}"><br>
+            </div>
+           
+        <div class="md-3 col-md-12">
+            <label class="form-label" >Billing Cycle</label><br>
+            <input type="radio"class="form-check-input" th:value="10" id="" th:field="*{billingDate}">
+            <label class="form-check-label" style="margin-right: 1pc;" >10th</label>
+            <input type="radio"class="form-check-input" th:value="20" id="" th:field="*{billingDate}">
+            <label class="form-check-label" style="margin-right: 1pc;">20th</label>
+            <input type="radio"class="form-check-input" th:value="30" id="" th:field="*{billingDate}">
+            <label class="form-check-label" style="margin-right: 1pc;">30th</label>
+        </div>
+        
+        <!-- <br><br> -->
+        <div class="md-3 col-md-12">
+            <input type="checkbox" name="" id="" required>
+            <label >I read the <a href="">terms and conditions</a> and accept</label>
+            <!-- <input type="text" class="form-control form-control-lg" name="bankAcc" id="bankAcc"><br> -->
+        </div>
+
+        <div class="md-3 col-md-12">
+            <input type="submit" class="btn btn-success form-control" name="submit" value="SUBMIT">
+        </div>
+
+    </form>
+</body>
+</html>

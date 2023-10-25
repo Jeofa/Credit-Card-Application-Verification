@@ -1,0 +1,15 @@
+
+#column{
+	text-align: center;
+    margin-top: 5pc;
+    margin-left: 20pc;
+    height: 26pc;
+    border-radius: 12px;
+    background-color: ghostwhite;
+}
+img{
+	height: 155px;
+}
+form{
+	padding: 1pc 4pc;
+}

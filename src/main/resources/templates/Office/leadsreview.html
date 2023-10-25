@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ 	<title>users</title>
+  	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" th:href="@{/css/office/style.css}">
+	<link rel="stylesheet" th:href="@{/css/office/review.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <script th:src="@{/js/magnific.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/magnific.css}">
+    <link rel="stylesheet" th:href="@{/css/office/userws.css}">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+ 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+	 <script
+	    src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js">
+	  </script>
+ </head>
+ 
+<body >
+ <div class="container">
+            <form th:object="${leadsdata}" method="post" >
+                <div class="row" id="myrow">
+                    <div class="col-sm-6">
+                        <label class="form-label" >Name</label>
+                        <input type="text" id="input" disabled class="form-control" th:value="${leadsdata.name}" >
+                        <label class="form-label">Date of Birth</label>
+                        <input type="text"  id="input" disabled class="form-control" th:value="${leadsdata.dob}">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text"  id="input" disabled class="form-control" th:value="${leadsdata.phone}">
+                        <label class="form-label">County</label>
+                        <input type="text"  id="input" disabled class="form-control" th:value="${leadsdata.county}">
+                        <label class="form-label">Employment</label>
+                        <input type="text"  id="input" disabled class="form-control" th:value="${leadsdata.employment}">
+                        <label class="form-label">Bank Name</label>
+                        <input type="text"  id="input" disabled class="form-control" th:value="${leadsdata.bankname}">
+
+                    </div>
+                    <div class="col-sm-6">
+                    	 <a th:href="@{/office/leads}"><button type="button" class="btn-close" id="btndismissal" data-bs-dismiss="modal"
+									aria-label="Close"></button></a>
+                        <label class="form-label">Identity</label>
+                        <input type="text"  id="input" disabled class="form-control" th:value="${leadsdata.pid}">
+                        <label for="" class="form-label">Gender</label>
+                        <input type="text" id="input" disabled class="form-control" th:value="${leadsdata.gender}">
+                        <label for="" class="form-label">Email</label>
+                        <input type="text" id="input" disabled class="form-control" th:value="${leadsdata.email}">
+                        <label for="" class="form-label">Box Number</label>
+                        <input type="text" id="input" disabled class="form-control" th:value="${leadsdata.box}">
+                        <label for="" class="form-label">Salary</label>
+                        <input type="text" id="input" disabled class="form-control" th:value="${leadsdata.salary}">
+                        <label for="" class="form-label">Bank Account</label>
+                        <input type="text" id="input" disabled class="form-control" th:value="${leadsdata.bankacc}"><br><br>
+                    </div>
+                   <!-- <div class="">
+                        <ul style="display: inline-flex; margin-left: 0pc;">
+                            <li data-toggle="popover" title="View ID" class="identity" ><input type="hidden" id="identity" th:value="${leadsdata.imagename}"><button class="btn btn-outline-primary" type="button"><h5>Identity </h5></button></li>
+                            <li data-toggle="popover" title="View Payslip" class="payslip" > <input type="hidden" id="payslip" th:value="${leadsdata.imagename}"><button class="btn btn-outline-primary"id="payslipbtn" type="button"><h5>PaySlip </h5></button></li>
+                            <li data-toggle="popover" title="View bank Statement" class="bankstmt" ><input type="hidden" id="bankstmt" th:value="${leadsdata.imagename}"><button class="btn btn-outline-primary" type="button"><h5>Bank Statment </h5></button></li>
+                        </ul>
+                    </div>-->
+                </div>
+            </form>
+        </div>
+ 
+</body>
+</html>
+
+<script>
+        $(function () {
+			
+			var identity = document.getElementById("identity").value;
+			var payslip = document.getElementById("payslip").value;
+			var bankstmt = document.getElementById("bankstmt").value;
+			
+			 var url = "/home/CCAVIMG/"+payslip;
+			 const vas = document.createElement("a");
+			 vas.setAttribute('href',url);
+			 vas.setAttribute('target','_blank');
+			 console.log(vas);
+			 document.getElementById("payslipbtn").append(vas) ;
+			
+            $(".identity").on('click', function () {
+                $('.identity').magnificPopup({
+					 items: {
+				      src: '/home/CCAVIMG/'+identity
+				    },
+					type:'image'});
+            });
+             $(".payslip").on('click', function () {
+			//	 var url = "/home/CCAV/"+payslip;
+				// const vas = document.createElement("a");
+				 //vas.setAttribute('href',url);
+				 //console.log(vas);
+				//document.getElementById("payslipbtn").append(vas) ;
+               
+            });
+             $(".bankstmt").on('click', function () {
+                $('.bankstmt').magnificPopup({
+					 items: {
+				      src: '/js/analyser/'+bankstmt
+				    },
+					type:'image'});
+            });
+        })
+    </script>
+<script>
+
+  $(document).ready(function () {
+	//$('.image-link').magnificPopup({
+		
+  //type: 'image',
+  //mainClass: 'mfp-with-zoom', // this class is for CSS animation below
+
+  //zoom: {
+   // enabled: true, // By default it's false, so don't forget to enable it
+//
+   // duration: 300, // duration of the effect, in milliseconds
+   // easing: 'ease-in-out', // CSS transition easing function
+
+    // The "opener" function should return the element from which popup will be zoomed in
+    // and to which popup will be scaled down
+    // By defailt it looks for an image tag:
+   // opener: function(openerElement) {
+      // openerElement is the element on which popup was initialized, in this case its <a> tag
+      // you don't need to add "opener" option if this code matches your needs, it's defailt one.
+    //  return openerElement.is('img') ? openerElement : openerElement.find('img');
+    //}
+  //}
+
+//});
+	//$('.image-link').magnificPopup({type:'image'});
+	
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus');
+    });
+
+
+  });
+
+</script>

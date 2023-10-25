@@ -1,0 +1,31 @@
+#body{
+    background-color: aliceblue;
+}
+
+#user-section-row{
+    border-radius: 3px;
+    box-shadow: 2px 4px 4px 4px lightgrey;
+    padding: 1pc;
+    margin-bottom: 1pc;
+
+  
+}
+#user-section-row-modal{
+    margin-bottom: 1pc;
+}
+#UserBtn{
+    background-color: white;
+}
+#UserBtn h4{
+    padding-left: 2pc;
+}
+#spanAngle{
+    font-size: xx-large;
+    padding: 0px 0px 0px 52pc;
+}
+#RolesBtn{
+    background-color: white;    margin-top: 1pc;
+}
+#RolesBtn h4{
+    padding-left: 2pc;
+}

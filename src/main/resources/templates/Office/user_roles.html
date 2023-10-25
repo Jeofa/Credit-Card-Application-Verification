@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" th:href="@{/css/office/style.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	<script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+	<script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+	<script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <title>user_roles</title>
+</head>
+<body>
+	<div th:fragment="navigation" class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="bg-success">
+				<div class="p-4 pt-5 ">
+					<a href="#" class="img logo rounded-circle mb-5"
+						th:style="'background-image: url(/img/logo.png)'"></a>
+					<ul class="list-unstyled components mb-5">
+
+						<li>
+							<a th:href="@{/office/dashboard}">Dashboard</a>
+						</li>
+						<li>
+							<a th:href="@{/office/clients}">Clients</a>
+						</li>
+						<li>
+							<a th:href="@{/office/leads}">Leads</a>
+						</li>
+						<li class="active">
+							<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+								class="dropdown-toggle">SMS</a>
+							<ul class="collapse list-unstyled" id="pageSubmenu">
+								<li>
+									<a th:href="@{/office/sms}">Manage</a>
+								</li>
+								<li>
+									<a th:href="@{/office/manage/sms}">Send Bulk</a>
+								</li>
+
+							</ul>
+						</li>
+						<li>
+							<a th:href="@{/office/users}">Users</a>
+						</li>
+						<li>
+							<a th:href="@{/office/logs}">Logs</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<div id="page-label">
+				<p>Users/manage </p>
+			</div>
+		</div>
+	<!-- This is for toaster-->
+		<div class="toast-container position-fixed top-0 end-0 p-3">
+		  <div id="liveToast" class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+
+		    <div class="toast-body">
+		     <strong  style="color: white;">success</strong>
+		    </div>
+		  </div>
+		</div>
+		
+	<div style="margin: -33pc -8pc 0pc 11pc;">
+	    <div class="row" style="margin: 2pc 16pc 1pc 16pc; background-color: honeydew;padding: 0pc 1pc 2pc;">
+	          <p style="color: green;">Users Details and Assigned Roles</p>
+	        <div class="col-sm-6" style="padding: 1pc;
+	        width: 23pc;
+	        border-radius: 6px;
+	        box-shadow: -1px 2px 8px 2px darkgrey;">
+	            <table >
+	                <tr th:each="user : ${manageUser}">
+	                     <th>ID</th>
+	                     <td><input th:value="${user.user_id}" disabled></td>
+	                </tr>
+	                <tr th:each="user : ${manageUser}">
+	                    <th>Username</th>
+	                    <td><input th:value="${user.username}" disabled></td>
+	               </tr>
+	               <tr th:each="user : ${manageUser}">
+	                    <th>Email</th>
+	                    <td><input th:value="${user.email}" disabled></td>
+	                </tr>
+	               
+	            </table>
+	
+	        </div>
+	        <div class="col-sm-2"></div>
+	        <div class="col-sm-4" style="    width: 18pc;margin-left: -4pc;">
+	            <table class="table table-striped table-sm">
+	              
+	                <tr>
+	                    <th>Role</th>
+	                    <th>Action</th>
+	                </tr>
+	                <tr th:each="myroles : ${Roles}">
+	                    <td th:text="${myroles.role}">USER</td>
+	                    <td><a th:href="@{unassign/role(role_id=${myroles.role_id},user_id=${manageUser.user_id})}"><button id="liveToastBtn" class="btn btn-outline-danger btn-sm">unassign</button></a></td>
+	                </tr>
+	            </table>
+	        </div>
+	    </div>
+	    <div style="width: 56pc; margin: 2pc 0pc 0pc 12pc;background-color: honeydew;padding: 1pc;">
+	        <p style="color: green;">Unassigned Roles</p>
+	    <hr>
+	        <table class="table table-stripped-bordered">
+	            <tr>
+	                <th>Role</th>
+	                <th>Description</th>
+	                <th>Actions</th>
+	            </tr>
+	            <tr th:each="notRole : ${NotRoles}">
+	                <td th:text="${notRole.role}"></td>
+	                <td th:text="${notRole.roleDesc}"></td>
+	                <td> 
+	                	<!--<button  th:object="${success}" class="btn btn-outline-danger btn-sm">Toast</button>-->
+	                	<a th:href="@{assign/role(role_id=${notRole.roleId},user_id=${manageUser.user_id})}">
+	                		<button type="submit" class="btn btn-primary btn-sm" id="liveToastBtn">assign</button></a>
+	                	</td>
+	            </tr>
+	        </table>
+	    </div>
+	</div>
+</body>
+<script>
+	var values = document.querySelectorAll('[id^=liveToastBtn]')
+	const toastLiveExample = document.getElementById('liveToast')
+
+	for(var i in values){
+	   	if (values[i]) {
+		  values[i].addEventListener('click', () => {
+		    const toast = new bootstrap.Toast(toastLiveExample)
+		    setInterval(toast,6000);
+		    toast.show()
+		  })
+		}
+	}
+</script>
+</html>

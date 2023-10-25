@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/users/personaldetails.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+
+    <title>Document</title>
+</head>
+<body>
+    <form th:action="@{/users/bankDetails}" th:object="${bank}"  method="POST" class="row g-3" id="form_layout" enctype="multipart/form-data">
+
+        <h4 id="heading">BANK DETAILS</h4>
+		<input type='hidden' id="errorgetter">	
+        <div class="md-3 col-md-12">
+            <label class="form-label" >Bank Name</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{bankName}" ><br>
+        </div>
+        <div class="md-3 col-md-12">
+            <label class="form-label" >Bank Account</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{backAccount}" ><br>
+        </div>
+        
+        <div class="md-3 col-md-12">
+            <label class="form-label" >Type of Account</label>
+            <select  th:field="*{accType}"  class="form-control form-control-lg">
+                <option th:value="Saving_Account">Saving Account</option>
+                <option th:value="Checking_Account">Checking Account</option>
+                <option th:value="Money_Market_Account">Money Market Account</option>
+            </select>
+        </div>
+        
+        <br><br>
+        <div class="file-drop-area">
+            <span class="fake-btn">Upload Bank Statement</span>
+            <span class="file-msg">or drag and drop files here</span>
+            <input class="file-input" type="file" name="file" >
+        </div>
+
+        <div class="md-3 col-md-12">
+            <input type="submit" class="btn btn-success form-control" name="submit" value="SUBMIT">
+        </div>
+
+    </form>
+</body>
+</html>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script>  
+    $(document).ready(function(){
+	//require('/js/analyser/index.js');
+	var url_string = window.location.href; 
+	var url = new URL(url_string);
+	var error = url.searchParams.get("error");
+	document.getElementById("errorgetter").value = error;
+		if(error == "error"){
+		 swal("Error!!", "Check on your:\n Image uploaded if authentic\nOR\nNetwork connection ", "warning");
+       }
+	});
+	</script>
+	

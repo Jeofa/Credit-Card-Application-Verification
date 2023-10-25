@@ -1,0 +1,224 @@
+
+
+id analyser
+//			ScriptEngineManager manager = new ScriptEngineManager();
+//			ScriptEngine engine = manager.getEngineByName("Javascript");
+//			// read script file
+//			
+//			engine.eval(Files.newBufferedReader(Paths.get("src/main/resources/static/js/analyser/index.js"), StandardCharsets.UTF_8));
+//
+//			Invocable inv = (Invocable) engine;
+//			// call function from script file
+//			try {
+//				inv.invokeFunction("performVerification", "image_"+person.getPerson_Id());
+//				return "redirect:/users/residentDetails?clientid="+clientid;
+//			} catch (NoSuchMethodException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (ScriptException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				return "redirect:/users/residentDetails?clientid="+clientid;
+//			}
+
+
+
+private Authentic uploadFileToAnalyser(MultipartFile file) {
+		String url = "https://api.idanalyzer.com";
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("apikey", "5Cw3z1ZcMMZWDxPvocLRPZfxsImLPpHX");
+		MultipartFile data = file;
+		Authentic result = restTemplate.postForObject(url,data,Authentic.class);
+		
+//		set result to an json format
+		
+		return result;
+		
+	}
+	
+	private Response uploadPaySlipToLazarus(MultipartFile file) {
+		
+		String filepath = "/CCAV-V3/src/main/resources/static/img/slip.png";
+		
+		OkHttpClient client = new OkHttpClient().newBuilder()
+				  .build();
+				MediaType mediaType = MediaType.parse("text/plain");
+				@SuppressWarnings("deprecation")
+				RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+				  .addFormDataPart("file","payslip",
+				    RequestBody.create(MediaType.parse("application/octet-stream"),
+				    new File(filepath)))
+				  .build();
+				Request request = new Request.Builder()
+				  .url("https://api.lazarusforms.com/api/forms/generic/zip")
+				  .method("POST", body)
+				  .addHeader("orgId","9880b7682d9843cb94")
+				  .addHeader("authKey", "59e3a937f44240a18896")
+				  .build();
+				try {
+					Response response = client.newCall(request).execute();
+					System.out.println(response);
+					return response;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//		String url = "https://api.lazarusforms.com/api/forms/generic";
+//		
+//		HttpHeaders responseHeaders = new HttpHeaders();
+//		responseHeaders.set("orgId", "9880b7682d9843cb94");
+//		responseHeaders.set("authKey", "59e3a937f44240a18896");
+//		MultipartFile data = file;
+//		PaySlip result = restTemplate.postForObject(url,data,PaySlip.class);
+//		
+////		set result to an json format
+//		
+//		return response;
+				return null;
+		
+	}
+	
+		public String uploadPaySlipToLazarus() {
+		
+		String filepath = "/CCAV-V3/src/main/resources/static/img/slip.png";
+		
+		OkHttpClient client = new OkHttpClient().newBuilder()
+				  .build();
+				MediaType mediaType = MediaType.parse("text/plain");
+				@SuppressWarnings("deprecation")
+				RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+				  .addFormDataPart("file","payslip",
+				    RequestBody.create(MediaType.parse("application/octet-stream"),
+				    new File(filepath)))
+				  .build();
+				Request request = new Request.Builder()
+				  .url("https://api.lazarusforms.com/api/forms/generic")
+				  .method("POST", body)
+				  .addHeader("orgId","9880b7682d9843cb94")
+				  .addHeader("authKey", "59e3a937f44240a18896")
+				  .build();
+				try {
+					Response response = client.newCall(request).execute();
+					System.out.println(response);
+					return "at least";
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "noma";
+		
+	}
+	
+	
+	//	private static final String JS_CODE = Paths.get("");
+
+	private static final String JS_CODE = "(function performVerification(param){"
+			
+//			+ "	const IDAnalyzer = require(\"idanalyzer\");"
+			+ "import {CoreAPI} from 'idanalyzer';  \n"
+			+ "  \n"
+			+ "let CoreAPI = new IDAnalyzer.CoreAPI(\"kvcVT1w5gGCkTis18wnoqzC4UsUaALVO\",\"US\");  \n"
+			+ "\n"
+			+ "// Enable authentication module v2 to check if ID is authentic\n"
+			+ "CoreAPI.enableAuthentication(true, 2);  \n"
+			+ "	\n"
+			+ "	let image = \"/home/CCVAIMG/\"+param;\n"
+			+ "\n"
+			+ "\n"
+			+ "CoreAPI.scan({ document_primary: image }).then(function (response) {  \n"
+			+ "    if(!response.error){  \n"
+			+ "        console.log(response);  \n"
+			+ "        // All the information about this ID will be returned in an associative array  \n"
+			+ "        let data_result = response['result'];  \n"
+			+ "        let authentication_result = response['authentication'];  \n"
+			+ "        \n"
+			+ "  \n"
+			+ "        // Print result  \n"
+			+ "        console.log(`Hello your name is ${data_result['firstName']} ${data_result['lastName']}`);  \n"
+			+ "  \n"
+			+ "        // Parse document authentication results  \n"
+			+ "        if(authentication_result){  \n"
+			+ "            if(authentication_result['score'] > 0.5) {  \n"
+			+ "                console.log(\"The document uploaded is authentic\");  \n"
+			+ "            }else if(authentication_result['score'] > 0.3){  \n"
+			+ "                console.log(\"The document uploaded looks little bit suspicious\");  \n"
+			+ "            }else{  \n"
+			+ "                console.log(\"The document uploaded is fake\");  \n"
+			+ "            }  \n"
+			+ "        }  \n"
+			+ "        // Parse biometric verification results  \n"
+			+ "        \n"
+			+ "    }else{  \n"
+			+ "        // API returned an error  \n"
+			+ "        console.log(response.error);  \n"
+			+ "    }  \n"
+			+ "}).catch(function (err) {  \n"
+			+ "    console.log(err.message);  \n"
+			+ "});})";
+	
+	
+	
+	ScriptEngineManager sem = new ScriptEngineManager();
+//		List<ScriptEngineFactory> factories = sem.getEngineFactories();
+//		for (ScriptEngineFactory factory : factories)
+//		    System.out.println(factory.getEngineName() + " " + factory.getEngineVersion() + " " + factory.getNames());
+//		if (factories.isEmpty())
+//		    System.out.println("No Script Engines found");
+		
+//		String image_path = "/home/CCVAIMG/image_119623.jpeg";
+//		ScriptEngineManager manager = new ScriptEngineManager();
+//		ScriptEngine engine = manager.getEngineByName("Javascript");
+		// read script file
+//		Context ctx = Context.create("js");
+//		 Context ctx = Context.newBuilder("js")
+//			        .allowAllAccess(true)
+//			        .fileSystem(new MyORCFs())
+//			        .build();
+//		var source = Source.newBuilder("js", " import {performVerification as verf } from 'performVerification'; verf;","loading.mjs").build();
+//		var source = Source.newBuilder("js",
+//				" import {performVerification as verf } from '/home/jeff/Documents/SpringBootData/CCAV-V3/src/main/resources/static/js/analyser/node_modules/idanalyzer/pers.mjs'; verf;",
+//				"loading.mjs").build();
+//		ctx.getBindings("js").getMember("").
+//		Value val = ctx.eval("js",JS_CODE);
+//		System.out.println(val.execute("image_119623.jpeg"));
+//		pr.execute("image_119623.jpeg");
+//		System.out.println(pr.canExecute());
+//		System.out.println(pr.execute(2,4));
+		
+//		engine.setContext(ctx);
+//		engine.eval(Files.newBufferedReader(Paths.get("src/main/resources/static/js/analyser/index.js"), StandardCharsets.UTF_8));
+//
+//		Invocable inv = (Invocable) engine;
+//		// call function from script file
+//		try {
+//			inv.invokeFunction("performVerification", image_path);
+//		} catch (NoSuchMethodException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ScriptException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+	}
+	
+	//now call the OCR to check with the inputed data.
+//	OCR ocr =new OCR();
+//	boolean image_verification = ocr.checkIDData(image_path, ""+person.getPerson_Id());
+//	if(image_verification == true) {
+//		personRepo.save(person);
+//		
+//		return "redirect:/users/residentDetails?clientid="+clientid;
+//	}else {
+//		return "";
+//	}
+////	file.
+//	
+//} catch (IllegalStateException | IOException e) {
+//	// TODO Auto-generated catch block
+//	e.printStackTrace();
+//	return "";
+//}
+	
+	

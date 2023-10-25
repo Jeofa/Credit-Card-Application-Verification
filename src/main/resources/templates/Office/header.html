@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<!-- <title>Sidebar 01</title> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" th:href="@{/css/office/style.css}">
+	 <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+ 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  </head>
+  <body>
+		
+		<div    class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar" class="bg-success">
+				<div class="p-4 pt-5 ">
+		  		<a href="#" class="img logo rounded-circle mb-5" th:style="'background-image: url(/img/logo.png)'"></a>
+	        <ul class="list-unstyled components mb-5">
+	         
+	          <li>
+	            <a th:href="@{/office/dashboard}">Dashboard</a>
+	          </li>
+            <li>
+              <a th:href="@{/office/clients}">Clients</a>
+            </li>
+            <li>
+                <a th:href="@{/office/leads}">Leads</a>
+            </li>
+	          <li>
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SMS</a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li>
+                    <a th:href="@{/office/sms}">Manage</a>
+                </li>
+                <li>
+                    <a th:href="@{/office/sms}">Send Bulk</a>
+                </li>
+             
+              </ul>
+	          </li>
+	          <li>
+              <a th:href="@{/office/users}">Users</a>
+	          </li>
+            <li  >
+              <a th:href="@{/office/logs}">Logs</a>
+	          </li>
+	        
+	        </ul>
+
+	      </div>
+    	</nav>
+
+		<div id="page-label"> 
+			<p>Page </p>
+		</div>
+       
+	</div>
+
+    <script th:src="@{/js/office/jquery.min.js}"></script>
+    <script th:src="@{/js/office/popper.js}"></script>
+    <script th:src="@{/js/office/bootstrap.min.js}"></script>
+    <script th:src="@{/js/office/main.js}"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+

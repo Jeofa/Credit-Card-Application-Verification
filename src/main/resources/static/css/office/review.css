@@ -1,0 +1,40 @@
+        #input{
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom-left-radius: 1px;
+            border-bottom-right-radius: 1px;
+            border-bottom-color: orange;
+            background: ghostwhite;
+            border-bottom-width: thin;
+            text-align: center;
+            font-family: serif;
+            color: cadetblue;
+            font-size: large;
+            font-weight: bold;
+        }
+        #myrow{
+            width: 55pc;
+            box-shadow: 1px 2px 11px 7px grey;
+            margin: 3pc 0pc 2pc 7pc;
+            padding: 2pc;
+            background-color: ghostwhite;
+        }
+       	ul{
+            display: inline-flex;
+            font-family: monospace;
+            list-style: none;
+        }
+        ul li{
+            padding-right: 6pc;
+            --bs-link-hover-color: orange;
+        }
+        #btndismissal{
+		    background-color: orange;
+		    border-radius: 50pc;
+		    position: absolute;
+		    margin: -29px 0pc 2pc 23pc;
+		    width: 2pc;
+		    height: 2pc;
+		    font-size: x-large;
+		}

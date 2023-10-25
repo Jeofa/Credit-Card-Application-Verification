@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/users/residentialdetails.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <title>Residential</title>
+</head>
+<body class="container">
+
+    <form th:action="@{/users/residentDetails}" th:object="${resident}" method="POST" class="row g-3" id="form_layout">
+
+      <h4 id="heading">RESIDENTIAL DETAILS</h4>
+      	<input type="text"  th:field="*{residence}" id="client">
+
+        <div class="md-3 ">
+            <label class="form-label" >Box Number</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{boxNo}" id="boxNo">
+        </div>
+
+        <div class="md-3">
+            <label class="form-label" >Postal Code</label>
+            <input type="text" class="form-control form-control-lg" th:field="*{postalCode}" name="PostalCode" id="PostalCode">
+        </div>  
+		
+		  <div class="md-3">
+		  	<label for="" class="label-form">County</label>
+        	<select name="country" id="country" th:field="*{county}" class="form-control">
+            <option value="Nairobi">Nairobi</option>
+            <option value="Mombasa">Mombasa</option>
+            <option value="Kisumu">Kisumu</option>
+            <option value="Nakuru">Nakuru</option>
+       		 </select>
+		  </div>
+		  
+		  <div class="md-3">
+	        <label for="" class="label-form">Sub-county</label>
+	        <select name="state" th:field="*{constituency}" id="state" class="form-control">
+	            <option value="Langata">Langata</option>
+	             <option value="Starehe">Starehe</option>
+	              <option value="Nyali">Nyali</option>
+	               <option value="Kisauni">Kisauni</option>
+	                <option value="Muhoroni">Muhoroni</option>
+	                 <option value="KisumuWest">Kisumu West</option>
+	                  <option value="Rongai">Rogai</option>
+	                   <option value="Lunga Lunga">Lunga Lunga</option>
+	        </select>
+		  </div>
+		  
+        <div class="md-3">
+	        <label for="" class="label-form">PickUp Location</label>
+	        <input th:field="*{location}" id="city"  class="form-control">
+        </div>
+	        
+        <div class="md-3 col-md-12">
+            <input type="submit" class="btn btn-success form-control" name="submit" value="SUBMIT">
+        </div>
+
+    </form>
+    <hr>
+</body>
+</html>
+
+<script>
+
+    $(document).ready( ()=>{
+	
+		var url_string = window.location.href; 
+		var url = new URL(url_string);
+		var clientid = url.searchParams.get("clientid");
+		document.getElementById("client").value = clientid;
+		
+        // set default id value to be country :: to auto-load countries
+        load_json_data('country');
+
+        function load_json_data(id,parent_id){
+            var html_code = "";
+
+            $.getJSON("/testjson", function(data){
+
+                // Append this option to the html
+                html_code += '<option value="">Select '+id+'</option>';
+
+                // traverse the json data
+                $.each(data, function(key,value){
+                    if(id == "country"){
+                        if(value.parent_id == "0"){
+                            // here the parent_id 0 == country :: now append the values to html
+                            html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+                        }
+                    }else{
+                        // id value != country :: either state / city
+                        if(value.parent_id == parent_id){
+                            html_code += '<option value="'+value.id+'">'+value.name+'</option>';
+                        }
+
+                    }
+                });
+                // Now dynamically load data based on selected values
+                $('#'+id).html(html_code);
+            });
+
+        }
+
+        // Update State select bars when country isset
+        $(document).on('change','#country', function(){
+
+            // get the selected country id
+            var country_id = $(this).val();
+
+            // if it's not null :: load data ? append notices
+            if(country_id != null){
+                load_json_data('state',country_id);
+            }else{
+                $('#state').html('<option value="">Select state</option>');
+                $('#city').html('<option value="">Select city</option>');
+            }
+        });
+
+
+         // Update city select bars when state isset
+         $(document).on('change','#state', function(){
+
+            // get the selected country id
+            var state_id = $(this).val();
+
+            // if it's not null :: load data ? append notices
+            if(state_id != ''){
+                load_json_data('city',state_id);
+            }else{
+                $('#city').html('<option value="">Select city</option>');
+            }
+            });
+
+    });
+   
+</script>

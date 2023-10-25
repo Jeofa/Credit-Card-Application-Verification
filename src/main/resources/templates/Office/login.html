@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/office/login.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+    <script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+    <script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row" >
+            <div class="col-sm-6"id="column" >
+                <img th:src="@{/img/logo.png}" >
+                <form th:action="@{/admin/logindata}" method="POST" th:object="${user}" >
+
+                    <div class="form-floating">
+                        <input type="text" class="form-control" th:field="*{username}"   placeholder="Username?" id="Username" >
+                        <label for="Username">Username</label>
+                    </div><br>
+                    <div class="form-floating">
+                        <input type="password" class="form-control"  th:field="*{password}"   placeholder="Password?" id="Password" >
+                        <label for="Password">Password</label>
+                    </div><br>
+                    <div>
+                        <input type="submit" value="LOGIN" class="form-control form-control-lg btn btn-success">
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

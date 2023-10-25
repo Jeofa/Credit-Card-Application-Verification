@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/office/profile.css}">
+    <link rel="stylesheet" th:href="@{/css/office/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>profile</title>
+</head>
+<body>
+    <nav id="sidebar" class="bg-success">
+				<div class="p-4 pt-5 ">
+		  		<a href="#" class="img logo rounded-circle mb-5" th:style="'background-image: url(/img/logo.png)'"></a>
+	        <ul class="list-unstyled components mb-5">
+	         
+	          <li >
+	            <a th:href="@{/office/dashboard}">Dashboard</a>
+	          </li>
+            <li >
+              <a th:href="@{/office/clients}">Clients</a>
+            </li>
+            <li class="active">
+                <a th:href="@{/office/leads}">Leads</a>
+            </li>
+	          <li>
+              <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SMS</a>
+              <ul class="collapse list-unstyled" id="pageSubmenu">
+                <li>
+                    <a th:href="@{/office/sms}">Manage</a>
+                </li>
+                <li>
+                    <a th:href="@{/office/manage/sms}">Send Bulk</a>
+                </li>
+             
+              </ul>
+	          </li>
+	          <li>
+              <a th:href="@{/office/users}">Users</a>
+	          </li>
+            <li>
+              <a th:href="@{/office/logs}">Logs</a>
+	          </li>
+	        
+	        </ul>
+
+	      </div>
+    	</nav>
+    	<ul class="nav justify-content-end" style="margin-top: 1pc;">
+        
+		        <li class="nav-item">
+		          <a class="nav-link" th:href="@{/office/profile}"><i class="fa fa-user-o fa-1x" aria-hidden="true"></i></a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link disabled"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i> Logout</a>
+		        </li>
+	      </ul>
+
+<div style="margin-top: -30pc; margin-left: 5pc;" class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+<div class="col-xl-6 col-md-12">
+        <div style="width:44pc" class="card user-card-full">
+            <div class="row m-l-0 m-r-0">
+                <div style="background-color: lightgrey;" class="col-sm-4  user-profile">
+                    <div class="card-block text-center text-white" style="margin-top: 4pc;">
+                        <div class="m-b-25">
+                           <!-- <img th:src="@{/img/logo.png}" class="img-radius" alt="User-Profile-Image">-->
+                        </div>
+                        <h6 class="f-w-600">Hembo Tingor</h6>
+                        <p>operations</p>
+                        <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="card-block">
+                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Email</p>
+                                <h6 class="text-muted f-w-400">rntng@gmail.com</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Phone</p>
+                                <h6 class="text-muted f-w-400">98979989898</h6>
+                            </div>
+                        </div>
+                        <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Recent</p>
+                                <h6 class="text-muted f-w-400">Sam Disuja</h6>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="m-b-10 f-w-600">Most Viewed</p>
+                                <h6 class="text-muted f-w-400">Dinoter husainm</h6>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+        </div>
+    </div>
+
+</body>
+</html>

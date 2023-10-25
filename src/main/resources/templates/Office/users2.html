@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>users</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" th:href="@{/css/office/style.css}">
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	<script th:src="@{/css/bootstrap/bootstrap.core.min.js}"></script>
+	<script th:src="@{/css/bootstrap/bootstrap.min.js}"></script>
+	<script th:src="@{/css/bootstrap/jquery3.2.1.min.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/office/userws.css}">
+	<link rel="stylesheet" th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+</head>
+
+<body class="container-fluid" id="body">
+
+	<div class="wrapper d-flex align-items-stretch">
+		<nav id="sidebar" class="bg-success">
+			<div class="p-4 pt-5 ">
+				<a href="#" class="img logo rounded-circle mb-5" th:style="'background-image: url(/img/logo.png)'"></a>
+				<ul class="list-unstyled components mb-5">
+
+					<li>
+						<a th:href="@{/office/dashboard}">Dashboard</a>
+					</li>
+					<li>
+						<a th:href="@{/office/clients}">Clients</a>
+					</li>
+					<li>
+						<a th:href="@{/office/leads}">Leads</a>
+					</li>
+					<li>
+						<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+							class="dropdown-toggle">SMS</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu">
+							<li>
+								<a th:href="@{/office/sms}">Manage</a>
+							</li>
+							<li>
+								<a th:href="@{/office/manage/sms}">Send Bulk</a>
+							</li>
+
+						</ul>
+					</li>
+					<li class="active">
+						<a th:href="@{/office/users}">Users</a>
+					</li>
+					<li>
+						<a th:href="@{/office/logs}">Logs</a>
+					</li>
+
+				</ul>
+			</div>
+		</nav>
+		<div id="page-label">
+			<p>Users </p>
+		</div>
+
+	</div>
+	<div style="width:100%; height:7pc;background-color:lightgrey;padding-top: 3pc;margin: 0pc;text-align: center;">
+        <span style="color: white;">	&copy; Jeff</span>
+     </div>
+
+	<div class="accordion" id="accordionExample" style="margin: -38pc 1pc 0pc 16pc;">
+		<div class="col-md-12" id="user-section-row">
+			<div id="user-section-row-modal">
+				<!-- User Button trigger modal -->
+				<button type="button" style="margin: 0pc 0pc -1pc 2pc;" class="btn btn-primary" data-bs-toggle="modal"
+					data-bs-target="#newRole">
+					<i class="fa fa-plus" aria-hidden="true"></i> New Role
+				</button>
+				<!-- New User Modal -->
+				<div class="modal fade" id="newRole" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="newRoleLabel">Create Role</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form th:action="@{/admin/create/role}" th:object="${roleinfo}" method="POST">
+									<label class="form-label">Role</label>
+									<input type="text" th:field="*{role}" class="form-control"><br>
+									<label class="form-label">Description</label>
+									<input type="text" th:field="*{roleDesc}" class="form-control"><br>
+
+									<input type="submit" value="Create" class="btn btn-outline-primary" id="signbtn">
+									<button type="button" class="btn btn-outline-danger" id="loginbtn"
+										data-bs-dismiss="modal">Cancel</button>
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="accordion-item" style="margin: 2pc;width: 52pc;">
+			<h2 class="accordion-header" id="headingOne">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+					aria-expanded="true" aria-controls="collapseOne">
+					Roles
+				</button>
+			</h2>
+			<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+				data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-striped" id="roleTable">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Role</th>
+								<th scope="col">Description</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="role : ${roleData}">
+								<td>#</td>
+								<td th:text="${role.role}"></td>
+								<td th:text="${role.roleDesc}"></td>
+								<td>
+									<a th:href="@{/admin/update/role(id=${role.role_id})}"><button
+											class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"
+												aria-hidden="true"></i></button></a>
+									<a th:href="@{/admin/delete/role(id=${role.role_id})}"><button  onClick="if (!(confirm('Confirm Role Delete')))return false"
+											class="btn btn-danger btn-sm"><i class="fa fa-trash-o"
+												aria-hidden="true"></i></button></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12" id="user-section-row">
+			<div id="user-section-row-modal">
+				
+				<button type="button" style="margin: 0pc 0pc 1pc 2pc;" class="btn btn-primary" data-bs-toggle="modal"
+					data-bs-target="#newUser">
+					<i class="fa fa-plus" aria-hidden="true"></i> New User
+				</button>
+				<!-- New User Modal-->
+				<div class="modal fade" id="newUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="newUserLabel">Create User</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<form th:action="@{/admin/create/user}" th:object="${userinfo}" method="POST">
+									<label class="form-label">Username</label>
+									<input type="text" th:field="${userinfo.username}" class="form-control"><br>
+									<label class="form-label">Email</label>
+									<input type="email" th:field="${userinfo.email}" class="form-control"><br>
+
+									<input type="submit" value="Create" class="btn btn-outline-primary" id="signbtn">
+									<button type="button" class="btn btn-outline-danger" id="loginbtn"
+										data-bs-dismiss="modal">Cancel</button>
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="accordion-item" style="margin: 0pc 2pc;width: 52pc;">
+			<h2 class="accordion-header" id="headingTwo">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+					data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+					Users
+				</button>
+			</h2>
+			<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+				data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-striped" id="userTable">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Username</th>
+								<th scope="col">Email</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="user : ${usersData}">
+								<td>#</td>
+								<td th:text="${user.username}"></td>
+								<td th:text="${user.email}"></td>
+								<!--<td><a th:href="@{/admin/manage/user(user_id=${user.user_id})}"><button type="button"
+											class="btn btn-sm btn-outline-primary"><i class="fa fa-cog"
+												aria-hidden="true"></i> Manage</button></a></td>-->
+								<td>
+									<a th:href="@{/admin/update/user(id=${user.user_id})}"><button
+											class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o"
+												aria-hidden="true"></i></button></a>
+									<a th:href="@{/admin/delete/user(id=${user.user_id})}"><button
+											class="btn btn-danger btn-sm"><i class="fa fa-trash-o" onClick="if (!(confirm('Confirm User Delete')))return false"
+												aria-hidden="true"></i></button></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+
+</body>
+<script th:src="@{/js/header.js}"></script>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+
+	$(document).ready(function () {
+
+		$('#myModal').on('shown.bs.modal', function () {
+			$('#myInput').trigger('focus');
+		});
+		
+		});
+
+</script>
+
+</html>
